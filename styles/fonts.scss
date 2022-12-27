@@ -1,0 +1,60 @@
+@import './../assets/fonts/roboto/roboto.css';
+@import './../assets/fonts/cairo/cairo.css';
+
+@mixin font-roboto {
+  font-family: 'Roboto';
+}
+
+@mixin font-cairo {
+  font-family: 'Cairo';
+}
+
+@mixin font-icon {
+  font-family: 'comrec';
+}
+
+@mixin font-sm {
+  font-size: 1rem;
+}
+
+@mixin font-rg {
+  font-size: 1.3rem;
+}
+
+@mixin font-md {
+  font-size: 1.8rem;
+}
+
+@mixin font-lg {
+  font-size: 2.3rem;
+}
+
+@mixin font-xl {
+  font-size: 2.8rem;
+}
+
+@mixin font-xl {
+  font-size: 5rem;
+}
+
+@mixin font-light {
+  font-weight: 300;
+}
+
+@mixin font-normal {
+  font-weight: 400;
+}
+
+@mixin font-bold {
+  font-weight: 700;
+}
+
+@mixin font-black {
+  font-weight: 900;
+}
+
+@mixin font-title {
+  text-transform: capitalize;
+  @include font-xl;
+  @include font-bold;
+}

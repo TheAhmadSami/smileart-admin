@@ -1,0 +1,16 @@
+@import './../mixins';
+
+#client {
+  .servicesDetails {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin: 20px 0;
+  }
+
+  .content{
+    @include flex-center-center;
+    @include flex-wrap;
+    gap: 20px;
+  }
+}

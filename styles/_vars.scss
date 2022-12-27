@@ -1,0 +1,65 @@
+:root {
+  --primary: hsl(45, 68%, 42%);
+  --primary-hover: hsl(45, 68%, 47%);
+  --primary-10: hsla(45, 68%, 42%, .1);
+  --primary-15: hsla(45, 68%, 42%, .15);
+  --primary-20: hsla(45, 68%, 42%, .20);
+  --primary-50: hsla(45, 68%, 42%, .50);
+
+  --sec: rgb(248, 201, 13);
+  --sec-darker: hsl(48, 94%, 46%);
+  --sec-fade: hsla(48, 94%, 51%, 0.2);
+  --sec-fade-hover: hsla(48, 94%, 51%, 0.25);
+
+  --dark: hsl(196, 84%, 23%);
+  --dark-20: hsla(196, 84%, 23%, .1);
+
+  --black: hsl(0, 0%, 13%);
+  --black-10: hsla(0, 0%, 13%, 0.1);
+  --black-20: hsla(0, 0%, 13%, 0.20);
+  --white: hsl(0, 0%, 100%);
+  --white-20: hsla(0, 0%, 100%, 0.20);
+
+  --red: hsl(348, 100%, 49%);
+  --red-20: hsla(348, 100%, 49%, 0.20);
+  --red-30: hsla(348, 100%, 49%, 0.30);
+  --red-50: hsla(348, 100%, 49%, 0.50);
+  --red-70: hsla(348, 100%, 49%, 0.70);
+
+  --grey: hsl(210, 11%, 89%);
+  --grey-light: hsl(0, 0%, 93%);
+  --grey-dark: hsl(0, 0%, 70%);
+  --grey-hover: hsl(206, 12%, 85%);
+
+  --text: hsl(0, 0%, 13%);
+  --title: hsl(196, 84%, 23%);
+  --subtitle: hsl(0, 0%, 70%);
+
+
+  --font-title: 20px;
+  --font-normal: 16px;
+  --font-small: 14px;
+
+
+
+  --users-info: hsl(48, 94%, 51%);
+  --users-info-bg: hsla(48, 94%, 51%, .2);
+
+  --sellers-info: hsl(186, 100%, 45%);
+  --sellers-info-bg: hsla(186, 100%, 45%, .2);
+
+  --business-info: hsl(320, 100%, 47%);
+  --business-info-bg: hsla(320, 100%, 47%, .2);
+
+  --cars-info: hsl(245, 82%, 67%);
+  --cars-info-bg: hsla(245, 82%, 67%, .2);
+
+  --products-info: hsl(348, 100%, 49%);
+  --products-info-bg: hsla(348, 100%, 49%, .2);
+
+  --services-info: hsl(212, 100%, 50%);
+  --services-info-bg: hsla(212, 100%, 50%, .2);
+
+  --credits-info: hsl(28, 100%, 50%);
+  --credits-info-bg: hsla(28, 100%, 50%, .2);
+}

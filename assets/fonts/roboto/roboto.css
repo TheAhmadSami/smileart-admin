@@ -1,0 +1,71 @@
+@font-face {
+  font-family: 'Roboto';
+  font-weight: 100;
+  src: url('RobotoThin.woff2') format('woff2'),
+    url('RobotoThin.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'Roboto';
+  font-weight: 300;
+  src: url('RobotoLight.woff2') format('woff2'),
+    url('RobotoLight.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'Roboto';
+  font-weight: 400;
+  src: url('RobotoRegular.woff2') format('woff2'),
+    url('RobotoRegular.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'Roboto';
+  font-weight: 500;
+  src: url('RobotoMedium.woff2') format('woff2'),
+    url('RobotoMedium.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'Roboto';
+  font-weight: 700;
+  src: url('RobotoBold.woff2') format('woff2'),
+    url('RobotoBold.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'Roboto';
+  font-weight: 900;
+  src: url('RobotoBlack.woff2') format('woff2'),
+    url('RobotoBlack.woff') format('woff');
+}
+
+
+.roboto-thin-font {
+  font-family: Roboto;
+  font-weight: 100;
+}
+
+.roboto-light-font {
+  font-family: Roboto;
+  font-weight: 300;
+}
+
+.roboto-reg-font{
+  font-family: Roboto;
+  font-weight: 400;
+}
+.roboto-med-font {
+  font-family: Roboto;
+  font-weight: 500;
+}
+
+.roboto-bold-font {
+  font-family: Roboto;
+  font-weight: 700;
+}
+
+.roboto-black-font {
+  font-family: Roboto;
+  font-weight: 900;
+}

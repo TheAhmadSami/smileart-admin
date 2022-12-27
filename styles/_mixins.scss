@@ -1,0 +1,948 @@
+@mixin to-input($input-rd, $label-bg) {
+  input {
+    font-size: 18px;
+    @include p-10;
+    display: block;
+    width: 100%;
+    height: 100%;
+    border: 2px solid var(--primary-notactive);
+    background: transparent;
+    border-radius: $input-rd;
+    box-sizing: border-box;
+    outline: none;
+
+    &:focus~label,
+    &:valid~label {
+      left: 5px;
+      top: -7px;
+      @include translateY(0);
+
+      &:before {
+        padding: 0 4px;
+        margin-left: 5px;
+        color: var(--primary);
+        background: $label-bg;
+        content: attr(title);
+      }
+    }
+
+    &:focus,
+    &:valid {
+      border: 2px solid var(--primary);
+    }
+  }
+
+  label {
+    color: var(--primary-notactive);
+    font-weight: normal;
+    position: absolute;
+    pointer-events: none;
+    left: 10px;
+    top: 50%;
+    @include translateY(-50%);
+    @include transition;
+
+    &:before {
+      content: attr(placeholder);
+      display: block;
+      margin-left: 0px;
+      padding: 0 0;
+      color: var(--primary-notactive);
+      white-space: nowrap;
+      background: transparent;
+      @include transition;
+    }
+  }
+
+  &.disable {
+    input {
+      pointer-events: none;
+      border: 2px solid var(--primary-notactive);
+      color: var(--primary-notactive);
+    }
+
+    label {
+      color: var(--primary-notactive);
+
+      &:before {
+        color: var(--primary-notactive) !important;
+      }
+    }
+  }
+}
+
+//CUSTOM MIXINS
+@mixin translateX($value) {
+  transform: translateX($value);
+}
+
+@mixin translateY($value) {
+  transform: translateY($value);
+}
+
+@mixin translateX-50 {
+  transform: translateX(50%);
+}
+
+@mixin translateY-50 {
+  transform: translateY(50%);
+}
+
+@mixin centerXY {
+  transform: translate(50%, 50%);
+}
+
+@mixin translate($value) {
+  transform: translate($value);
+}
+
+@mixin translate($value, $value2) {
+  transform: translate($value, $value2);
+}
+
+@mixin scale($value) {
+  transform: scale($value);
+}
+
+@mixin btn-hover($text, $bg, $color) {
+  color: $text;
+  background: $bg;
+}
+
+@mixin btn-size {
+  width: 40px;
+  height: 40px;
+  border-radius: 16px;
+}
+
+@mixin noclick {
+  pointer-events: none;
+}
+
+@mixin br-0 {
+  border-radius: 0px;
+}
+
+@mixin br($value) {
+  border-radius: $value;
+}
+
+@mixin clear-button {
+  outline: none;
+  border: none;
+  background: transparent;
+}
+
+@mixin border($color) {
+  border: 2px solid $color;
+}
+
+
+//width*****************************************************************************
+@mixin w-10 {
+  width: 10%;
+}
+
+@mixin w-20 {
+  width: 20%;
+}
+
+@mixin w-30 {
+  width: 30%;
+}
+
+@mixin w-40 {
+  width: 40%;
+}
+
+@mixin w-50 {
+  width: 50%;
+}
+
+@mixin w-60 {
+  width: 60%;
+}
+
+@mixin w-70 {
+  width: 70%;
+}
+
+@mixin w-80 {
+  width: 80%;
+}
+
+@mixin w-90 {
+  width: 90%;
+}
+
+@mixin w-100 {
+  width: 100%;
+}
+
+@mixin w-auto {
+  width: auto;
+  width: max-content;
+  width: -moz-max-content;
+}
+
+//height*****************************************************************************
+@mixin h-50 {
+  height: 50%;
+}
+
+@mixin h-100 {
+  height: 100%;
+}
+
+@mixin h-auto {
+  height: auto;
+}
+
+
+//GENERAL MIXINS
+@mixin flex {
+  display: -ms-flexbox;
+  display: flex;
+}
+
+@mixin inline-flex {
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+}
+
+@mixin flex-row {
+  flex-direction: row;
+  -ms-flex-direction: row;
+}
+
+@mixin flex-row-rev {
+  flex-direction: row-reverse;
+  -ms-flex-direction: row-reverse;
+}
+
+@mixin flex-col {
+  flex-direction: column;
+  -ms-flex-direction: column;
+}
+
+@mixin flex-col-rev {
+  flex-direction: column-reverse;
+  -ms-flex-direction: column-reverse;
+}
+
+@mixin flex-wrap {
+  flex-wrap: wrap;
+}
+
+@mixin flex-nowrap {
+  flex-wrap: nowrap;
+}
+
+@mixin flex-start-start {
+  display: -ms-flexbox;
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
+@mixin flex-start-center {
+  display: -ms-flexbox;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+@mixin flex-start-end {
+  display: -ms-flexbox;
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-end;
+}
+
+@mixin flex-start-stretch {
+  display: -ms-flexbox;
+  display: flex;
+  justify-content: flex-start;
+  align-items: stretch;
+}
+
+@mixin flex-center-start {
+  display: -ms-flexbox;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+@mixin flex-center-center {
+  display: -ms-flexbox;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@mixin flex-center-end {
+  display: -ms-flexbox;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+}
+
+@mixin flex-center-stretch {
+  display: -ms-flexbox;
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
+}
+
+@mixin flex-end-start {
+  display: -ms-flexbox;
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-start;
+}
+
+@mixin flex-end-center {
+  display: -ms-flexbox;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+@mixin flex-end-end {
+  display: -ms-flexbox;
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
+}
+
+@mixin flex-end-stretch {
+  display: -ms-flexbox;
+  display: flex;
+  justify-content: flex-end;
+  align-items: stretch;
+}
+
+@mixin flex-between-start {
+  display: -ms-flexbox;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+@mixin flex-between-center {
+  display: -ms-flexbox;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+@mixin flex-between-end {
+  display: -ms-flexbox;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+@mixin flex-between-stretch {
+  display: -ms-flexbox;
+  display: flex;
+  justify-content: space-between;
+  align-items: stretch;
+}
+
+@mixin flex-around-start {
+  display: -ms-flexbox;
+  display: flex;
+  justify-content: space-around;
+  align-items: flex-start;
+}
+
+@mixin flex-around-center {
+  display: -ms-flexbox;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+@mixin flex-around-end {
+  display: -ms-flexbox;
+  display: flex;
+  justify-content: space-around;
+  align-items: flex-end;
+}
+
+@mixin flex-around-stretch {
+  display: -ms-flexbox;
+  display: flex;
+  justify-content: space-around;
+  align-items: stretch;
+}
+
+@mixin flex-stretch-center {
+  display: -ms-flexbox;
+  display: flex;
+  justify-content: stretch;
+  align-items: center;
+}
+
+@mixin flex-stretch-start {
+  display: -ms-flexbox;
+  display: flex;
+  justify-content: stretch;
+  align-items: flex-start;
+}
+
+@mixin flex-stretch-end {
+  display: -ms-flexbox;
+  display: flex;
+  justify-content: stretch;
+  align-items: flex-end;
+}
+
+@mixin flex-stretch-stretch {
+  display: -ms-flexbox;
+  display: flex;
+  justify-content: stretch;
+  align-items: stretch;
+}
+
+@mixin inline-flex-start-start {
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
+@mixin inline-flex-start-center {
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+@mixin inline-flex-start-end {
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  justify-content: flex-start;
+  align-items: flex-end;
+}
+
+@mixin inline-flex-start-stretch {
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  justify-content: flex-start;
+  align-items: stretch;
+}
+
+@mixin inline-flex-center-start {
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+@mixin inline-flex-center-center {
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@mixin inline-flex-center-end {
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  justify-content: center;
+  align-items: flex-end;
+}
+
+@mixin inline-flex-center-stretch {
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  justify-content: center;
+  align-items: stretch;
+}
+
+@mixin inline-flex-end-start {
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  justify-content: flex-end;
+  align-items: flex-start;
+}
+
+@mixin inline-flex-end-center {
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+@mixin inline-flex-end-end {
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  justify-content: flex-end;
+  align-items: flex-end;
+}
+
+@mixin inline-flex-end-stretch {
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  justify-content: flex-end;
+  align-items: stretch;
+}
+
+@mixin inline-flex-between-start {
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+@mixin inline-flex-between-center {
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+@mixin inline-flex-between-end {
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+@mixin inline-flex-between-stretch {
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  justify-content: space-between;
+  align-items: stretch;
+}
+
+@mixin inline-flex-around-start {
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  justify-content: space-around;
+  align-items: flex-start;
+}
+
+@mixin inline-flex-around-center {
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+@mixin inline-flex-around-end {
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  justify-content: space-around;
+  align-items: flex-end;
+}
+
+@mixin inline-flex-around-stretch {
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  justify-content: space-around;
+  align-items: stretch;
+}
+
+@mixin inline-flex-stretch-center {
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  justify-content: stretch;
+  align-items: center;
+}
+
+@mixin inline-flex-stretch-start {
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  justify-content: stretch;
+  align-items: flex-start;
+}
+
+@mixin inline-flex-stretch-end {
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  justify-content: stretch;
+  align-items: flex-end;
+}
+
+@mixin inline-flex-stretch-stretch {
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  justify-content: stretch;
+  align-items: stretch;
+}
+
+@mixin transition {
+  transition: .1s;
+}
+
+
+@mixin square($value) {
+  width: $value;
+  height: $value;
+}
+
+@mixin force-square($value) {
+  width: $value !important;
+  height: $value !important;
+  min-width: $value !important;
+  min-height: $value !important;
+}
+
+@mixin force-height($value) {
+  height: $value;
+  max-height: $value;
+  min-height: $value;
+}
+
+@mixin force-width($value) {
+  width: $value;
+  max-width: $value;
+  min-width: $value;
+}
+
+@mixin centered-background {
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+@mixin box-shadow {
+  box-shadow: 0 0 10px rgba(0, 0, 0, .3);
+}
+
+@mixin animation-rotate {
+  animation-name: rotate;
+  animation-duration: 1s;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+}
+
+@mixin linear-text($value) {
+  background: $value;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+@mixin animations($value) {
+  -webkit-animation: $value;
+  -moz-animation: $value;
+  -ms-animation: $value;
+  -o-animation: $value;
+  animation: $value;
+}
+
+@mixin show-menu() {
+  visibility: visible;
+  opacity: 1;
+  top: 100%;
+  z-index: 50;
+}
+
+
+//margins*****************************************************************************
+
+//margins
+@mixin m-0 {
+  margin: 0;
+}
+
+@mixin m-10 {
+  margin: 10px;
+}
+
+@mixin m-20 {
+  margin: 20px;
+}
+
+@mixin m-30 {
+  margin: 30px;
+}
+
+@mixin m-40 {
+  margin: 40px;
+}
+
+@mixin m-50 {
+  margin: 50px;
+}
+
+@mixin m($value) {
+  margin: $value;
+}
+
+
+//margins-top
+@mixin mt-0 {
+  margin-top: 0;
+}
+
+@mixin mt-10 {
+  margin-top: 10px;
+}
+
+@mixin mt-20 {
+  margin-top: 20px;
+}
+
+@mixin mt-30 {
+  margin-top: 30px;
+}
+
+@mixin mt-40 {
+  margin-top: 40px;
+}
+
+@mixin mt-50 {
+  margin-top: 50px;
+}
+
+@mixin mt($value) {
+  margin-top: $value;
+}
+
+//margins-right
+@mixin mr-0 {
+  margin-right: 0;
+}
+
+@mixin mr-10 {
+  margin-right: 10px;
+}
+
+@mixin mr-20 {
+  margin-right: 20px;
+}
+
+@mixin mr-30 {
+  margin-right: 30px;
+}
+
+@mixin mr-40 {
+  margin-right: 40px;
+}
+
+@mixin mr-50 {
+  margin-right: 50px;
+}
+
+@mixin mr($value) {
+  margin-right: $value;
+}
+
+//margins-bottom
+@mixin mb-0 {
+  margin-bottom: 0;
+}
+
+@mixin mb-10 {
+  margin-bottom: 10px;
+}
+
+@mixin mb-20 {
+  margin-bottom: 20px;
+}
+
+@mixin mb-30 {
+  margin-bottom: 30px;
+}
+
+@mixin mb-40 {
+  margin-bottom: 40px;
+}
+
+@mixin mb-50 {
+  margin-bottom: 50px;
+}
+
+@mixin mb($value) {
+  margin-bottom: $value;
+}
+
+//margins-left
+@mixin ml-0 {
+  margin-left: 0;
+}
+
+@mixin ml-10 {
+  margin-left: 10px;
+}
+
+@mixin ml-20 {
+  margin-left: 20px;
+}
+
+@mixin ml-30 {
+  margin-left: 30px;
+}
+
+@mixin ml-40 {
+  margin-left: 40px;
+}
+
+@mixin ml-50 {
+  margin-left: 50px;
+}
+
+@mixin ml($value) {
+  margin-left: $value;
+}
+
+//paddings*****************************************************************************
+
+//paddings
+@mixin p-0 {
+  padding: 0;
+}
+
+@mixin p-10 {
+  padding: 10px;
+}
+
+@mixin p-20 {
+  padding: 20px;
+}
+
+@mixin p-30 {
+  padding: 30px;
+}
+
+@mixin p-40 {
+  padding: 40px;
+}
+
+@mixin p-50 {
+  padding: 50px;
+}
+
+@mixin p($value) {
+  padding: $value;
+}
+
+//padding-top
+@mixin pt-0 {
+  padding-top: 0;
+}
+
+@mixin pt-10 {
+  padding-top: 10px;
+}
+
+@mixin pt-20 {
+  padding-top: 20px;
+}
+
+@mixin pt-30 {
+  padding-top: 30px;
+}
+
+@mixin pt-40 {
+  padding-top: 40px;
+}
+
+@mixin pt-50 {
+  padding-top: 50px;
+}
+
+@mixin pt($value) {
+  padding-top: $value;
+}
+
+//padding-right
+@mixin pr-0 {
+  padding-right: 0;
+}
+
+@mixin pr-10 {
+  padding-right: 10px;
+}
+
+@mixin pr-20 {
+  padding-right: 20px;
+}
+
+@mixin pr-30 {
+  padding-right: 30px;
+}
+
+@mixin pr-40 {
+  padding-right: 40px;
+}
+
+@mixin pr-50 {
+  padding-right: 50px;
+}
+
+@mixin pr($value) {
+  padding-right: $value;
+}
+
+//padding-bottom
+@mixin pb-0 {
+  padding-bottom: 0;
+}
+
+@mixin pb-10 {
+  padding-bottom: 10px;
+}
+
+@mixin pb-20 {
+  padding-bottom: 20px;
+}
+
+@mixin pb-30 {
+  padding-bottom: 30px;
+}
+
+@mixin pb-40 {
+  padding-bottom: 40px;
+}
+
+@mixin pb-50 {
+  padding-bottom: 50px;
+}
+
+@mixin pb($value) {
+  padding-bottom: $value;
+}
+
+//padding-left
+@mixin pl-0 {
+  padding-left: 0;
+}
+
+@mixin pl-10 {
+  padding-left: 10px;
+}
+
+@mixin pl-20 {
+  padding-left: 20px;
+}
+
+@mixin pl-30 {
+  padding-left: 30px;
+}
+
+@mixin pl-40 {
+  padding-left: 40px;
+}
+
+@mixin pl-50 {
+  padding-left: 50px;
+}
+
+@mixin pl($value) {
+  padding-left: $value;
+}
+
+@mixin me($value) {
+  -webkit-margin-end: $value;
+  -moz-margin-end: $value;
+}
+
+@mixin ms($value) {
+  -webkit-margin-start: $value;
+  -moz-margin-start: $value;
+}

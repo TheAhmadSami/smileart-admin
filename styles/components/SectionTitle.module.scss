@@ -1,0 +1,30 @@
+@import './../mixins';
+
+.sectionTitleContainer {
+  width: 100%;
+  @include flex-between-start;
+
+  .sectionTitle {
+    width: fit-content;
+    font-weight: 600;
+    font-size: 22px;
+    color: var(--primary);
+  }
+
+  .actionContainer {
+    @include flex-center-center;
+    gap: 5px;
+    color: var(--primary);
+    cursor: pointer;
+
+    &:hover{
+      p{
+        text-decoration: underline;
+      }
+    }
+
+    i {
+      color: var(--primary);
+    }
+  }
+}

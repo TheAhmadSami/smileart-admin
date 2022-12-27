@@ -1,0 +1,28 @@
+@import './../mixins';
+
+.socialMediaContainer {
+  z-index: 5;
+
+  &.float {
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+  }
+
+  .socialMedia {
+    @include flex-center-center;
+    gap: 10px;
+    direction: ltr;
+
+    .socialIcon {
+      width: 32px;
+      height: 32px;
+      border-radius: 100%;
+      @include flex-center-center;
+
+      i {
+        color: #ffffff
+      }
+    }
+  }
+}

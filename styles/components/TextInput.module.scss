@@ -1,0 +1,28 @@
+.text-input {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  flex: 1;
+
+
+  .label {
+    font-weight: 700;
+    font-size: 14px;
+    color: #10002e;
+  }
+
+  .input {
+    outline: none;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+    padding: 12px;
+    gap: 10px;
+    height: 48px;
+
+    background: #ffffff;
+    border: 1px solid #d5d4dc;
+    border-radius: 8px;
+  }
+}

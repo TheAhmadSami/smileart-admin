@@ -1,0 +1,58 @@
+@import './../mixins';
+
+#contact {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+
+  .row {
+    display: flex;
+    gap: 20px;
+  }
+
+  .textareaContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    outline: none;
+
+    .label {
+      font-weight: 700;
+      font-size: 14px;
+      color: #10002e;
+    }
+
+    .textareaContainer2 {
+      @include flex;
+      gap: 20px;
+    }
+
+    .textarea {
+      width: 100%;
+      height: 100px;
+      padding: 12px 12px 12px 0px;
+      background: #ffffff;
+      border: 1px solid #d5d4dc;
+      border-radius: 8px;
+      resize: none;
+    }
+
+
+    .sendMessage {
+      height: '100%';
+      width: 80px;
+      background: #B38F21;
+      border-radius: 12px;
+      @include flex-center-center;
+      @include flex-col;
+      text-align: center;
+      color: #fff;
+    }
+  }
+
+  .map {
+    width: 100%;
+    height: 300px;
+    border-radius: 15px;
+  }
+}

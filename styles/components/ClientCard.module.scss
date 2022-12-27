@@ -1,0 +1,31 @@
+.review-card {
+  border-radius: 16px;
+  width: 48%;
+  background-color: white;
+  display: flex;
+  gap: 20px;
+  flex-direction: row-reverse;
+  overflow: hidden;
+  .img {
+    height: 170px;
+    width: 170px;
+    background-size: cover;
+    border-radius: 8px;
+  }
+
+  .content {
+    display: flex;
+    flex-direction: column;
+    padding: 15px 0 15px 15px;
+    .client-name {
+      font-weight: 600;
+      font-size: 14px;
+      color: #b38f22;
+    }
+    .client-review {
+      font-size: 14px;
+      font-weight: 400;
+      text-align: right;
+    }
+  }
+}

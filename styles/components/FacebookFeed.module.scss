@@ -1,0 +1,35 @@
+#facebookFeed {
+  background: #fff;
+  height: 100%;
+  border-radius: 15px;
+  padding: 10px;
+
+  .row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .row2 {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+
+      i {
+        font-size: 25px;
+        color: #0675e8;
+      }
+
+      .title {
+        font-weight: 600;
+        color: #0675e8;
+      }
+    }
+
+    .subtitle {
+      font-weight: 600;
+      color: #0675e8;
+      font-size: 10px;
+      cursor: pointer;
+    }
+  }
+}

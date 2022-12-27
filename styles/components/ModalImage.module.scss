@@ -1,0 +1,18 @@
+#ModalImage {
+  background-color: rgba(0, 0, 0, 0.459);
+  height: 100%;
+  position: absolute;
+  width: 100%;
+  z-index: 99999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  top: 0;
+  right: 0;
+
+  img {
+    width: auto;
+    height: 80%;
+    border-radius: 20px;
+  }
+}

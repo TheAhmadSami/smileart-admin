@@ -1,6 +1,5 @@
 import React from "react";
-import { useTranslation } from "next-i18next";
-import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import { useTranslation } from "react-i18next";
 import { FacebookProvider, Page } from 'react-facebook';
 
 

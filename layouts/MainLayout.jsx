@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { useRouter } from "next/router";
-import { useTranslation } from "next-i18next";
-import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import { useTranslation } from "react-i18next";
 import Link from "next/link";
 
 //components
@@ -28,22 +27,10 @@ const MainLayout = ({ children }) => {
       <Menu />
       <div id="__body">
         <div id="__body-content">{children}</div>
-        <div id="__feed">
-          <SocialMedia />
-          <FeedVideo />
-          <FacebookFeed />
-        </div>
+        
       </div>
     </div>
   );
 };
 
 export default MainLayout;
-
-export async function getStaticProps({ locale }) {
-  return {
-    props: {
-      ...(await serverSideTranslations(locale, ["common"])),
-    },
-  };
-}

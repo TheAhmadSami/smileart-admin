@@ -1,10 +1,8 @@
 /* eslint-disable @next/next/no-img-element */
 import React, { useEffect, useState } from "react";
-import { useTranslation } from "next-i18next";
-import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { Button, Modal, TextField } from "@mui/material";
 import SimpleImageSlider from "react-simple-image-slider";
-import { get, post } from "@sa/utils/axios";
+import { get, post, remove } from "@sa/utils/axios";
 
 //components
 import { Banner, SectionTitle, CustomCard } from "@sa/components";
@@ -12,9 +10,7 @@ import { Banner, SectionTitle, CustomCard } from "@sa/components";
 //styles
 import styles from "@sa/styles/pages/Gallery.module.scss";
 
-
 const Gallery = () => {
-  const { t } = useTranslation();
   const [gallery, setGallery] = useState([]);
   const [modalStatus, setModalStatus] = useState(false);
   const [imageModal, setImageModal] = useState(false);
@@ -47,6 +43,13 @@ const Gallery = () => {
     setModalStatus(false);
   };
 
+  const deleteImage = (imageId) => {
+    remove(`/gallery/${imageId}`).then((res) => {
+      closeModal();
+      loadGallery();
+    });
+  };
+
   useEffect(() => {
     loadGallery();
   }, []);
@@ -54,8 +57,8 @@ const Gallery = () => {
   return (
     <div id={styles.gallery} className="__page">
       <SectionTitle
-        title={t("gallery")}
-        actionText="اضافة صورة/فيديو"
+        title="معرض الصور"
+        actionText="اضافة صورة"
         onClick={() => setModalStatus(true)}
       />
 
@@ -63,13 +66,17 @@ const Gallery = () => {
         {gallery.length > 0 &&
           gallery?.map((item, index) => {
             return (
-              <img
-                key={index}
-                src={item?.url}
-                className={styles.img}
-                alt="Smile Art"
-                onClick={() => setImageModal(true)}
-              />
+              <div key={index} className={styles.imageContainer}>
+                <img
+                  src={item?.url}
+                  className={styles.img}
+                  alt="Smile Art"
+                  onClick={() => setImageModal(true)}
+                />
+                <div onClick={() => deleteImage(item?.id)} className={styles.deleteBtn}>
+                  <i className="fas fa-trash-alt"></i>
+                </div>
+              </div>
             );
           })}
       </div>
@@ -125,11 +132,3 @@ const Gallery = () => {
 };
 
 export default Gallery;
-
-export async function getStaticProps({ locale }) {
-  return {
-    props: {
-      ...(await serverSideTranslations(locale, ["common"])),
-    },
-  };
-}

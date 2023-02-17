@@ -1,16 +1,19 @@
-
-import { appWithTranslation } from "next-i18next";
+import { createTheme, ThemeProvider } from "@mui/material";
 import MainLayout from "@sa/layouts/MainLayout";
 
-import '@sa/styles/globals.scss'
+import "@sa/styles/globals.scss";
 
-const MyApp = ({ Component, pageProps }) => {
+const App = ({ Component, pageProps }) => {
+
+  const rtlTheme = createTheme({ direction: "rtl" });
+
   return (
-    <MainLayout>
-      <Component {...pageProps} />
-    </MainLayout>
+    <ThemeProvider theme={rtlTheme}>
+      <MainLayout>
+        <Component {...pageProps} />
+      </MainLayout>
+    </ThemeProvider>
   );
-  
-}
+};
 
-export default appWithTranslation(MyApp);
+export default App;

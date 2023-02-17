@@ -1,7 +1,7 @@
 import axios from 'axios';
 
-export const apiLink = 'http://localhost:3500/v1';
-// export const apiLink = 'https://api.smileart-eg.com';
+// export const apiLink = 'http://localhost:3500/v1';
+export const apiLink = 'https://api.smileart-eg.com/v1';
 
 export const post = async (url, data = new FormData()) => {
 

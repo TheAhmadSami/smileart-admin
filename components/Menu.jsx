@@ -1,7 +1,5 @@
 import React from "react";
 import { useRouter } from "next/router";
-import { useTranslation } from "next-i18next";
-import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 
 //components
 import { WorkTimeCard, MenuItem } from "@sa/components";
@@ -14,40 +12,33 @@ import Link from "next/link";
 import Image from "next/image";
 
 const Menu = ({ mini }) => {
-  const { t } = useTranslation();
   const router = useRouter();
 
   const menuItems = [
     {
-      label: "services",
-      route: `${router.locale}`,
+      label: "الخدمات",
+      route: '/',
       name: "/",
       icon: "fal fa-hand-holding-medical",
     },
     {
-      label: "team",
-      route: `${router.locale}/team`,
+      label: "فريق العمل",
+      route: 'team',
       name: "/team",
       icon: "fal fa-user-md",
     },
     {
-      label: "gallery",
-      route: `${router.locale}/gallery`,
+      label: "معرض الصور",
+      route: 'gallery',
       name: "/gallery",
       icon: "fal fa-images",
     },
     {
-      label: "clients",
-      route: `${router.locale}/clients`,
-      name: "/clients",
-      icon: "fal fa-users-crown",
-    },
-    {
-      label: "contact_us",
-      route: `${router.locale}/contact-us`,
-      name: "/contact-us",
-      icon: "fal fa-comment-lines",
-    },
+      label: "أخرى",
+      route: 'configs',
+      name: "/configs",
+      icon: "fal fa-cog",
+    }
   ];
 
   return (
@@ -70,7 +61,7 @@ const Menu = ({ mini }) => {
           <MenuItem
             key={i}
             route={menuItem.route}
-            label={t(menuItem.label)}
+            label={menuItem.label}
             icon={menuItem.icon}
             active={router.pathname == menuItem.name ? true : false}
             mini={mini}
@@ -83,11 +74,3 @@ const Menu = ({ mini }) => {
 };
 
 export default Menu;
-
-export async function getStaticProps({ locale }) {
-  return {
-    props: {
-      ...(await serverSideTranslations(locale, ["common"])),
-    },
-  };
-}

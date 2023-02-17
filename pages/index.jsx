@@ -1,40 +1,60 @@
 import React, { useEffect, useState } from "react";
-import { useTranslation } from "next-i18next";
-import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { Button, Modal, TextField } from "@mui/material";
-import { get, post } from "@sa/utils/axios";
+import { get, post, remove } from "@sa/utils/axios";
 
 //components
-import { Banner, SectionTitle, CustomCard } from "@sa/components";
+import { SectionTitle, CustomCard } from "@sa/components";
 
 //styles
 import styles from "@sa/styles/pages/Services.module.scss";
 import assets from "@sa/assets";
+import Compress from "compress.js";
 
-const Services = () => {
-  const { t } = useTranslation();
+const Service = () => {
   const [services, setServices] = useState([]);
   const [modalStatus, setModalStatus] = useState(false);
-  const [title, setTitle] = useState("");
-  const [subtitle, setSubtitle] = useState("");
+  const [titleEn, setTitleEn] = useState("");
+  const [subtitleEn, setSubtitleEn] = useState("");
+  const [titleAr, setTitleAr] = useState("");
+  const [subtitleAr, setSubtitleAr] = useState("");
   const [image, setImage] = useState("");
+  const [link, setLink] = useState("");
+  // const [compressedFile, setCompressedFile] = useState(null);
 
   const loadServices = async () => {
     get("/services").then((res) => {
-      setServices(res.data);
+      if (res?.data) setServices(res.data);
     });
   };
 
   const onImageChange = (event) => {
     if (event.target.files && event.target.files[0]) {
       setImage(event.target.files[0]);
+      // resizeImage(event.target.files[0]);
     }
   };
 
-  const addToServices = () => {
+  // const resizeImage = async (file) => {
+  //   const resizedImage = await Compress.compress([file], {
+  //     size: 1, // the max size in MB, defaults to 2MB
+  //     quality: .7, // the quality of the image, max is 1,
+  //     maxWidth: 500, // the max width of the output image, defaults to 1920px
+  //     maxHeight: 500, // the max height of the output image, defaults to 1920px
+  //     resize: true, // defaults to true, set false if you do not want to resize the image width and height
+  //   });
+  //   const img = resizedImage[0];
+  //   const base64str = img.data;
+  //   const imgExt = img.ext;
+  //   const resizedFiile = Compress.convertBase64ToFile(base64str, imgExt);
+  //   setCompressedFile(resizedFiile);
+  // };
+
+  const addToService = () => {
     let data = new FormData();
-    data.append("title", title);
-    data.append("subtitle", subtitle);
+    data.append("titleEn", titleEn);
+    data.append("subtitleEn", subtitleEn);
+    data.append("titleAr", titleAr);
+    data.append("subtitleAr", subtitleAr);
     data.append("image", image);
 
     post("/services", data).then((res) => {
@@ -44,8 +64,10 @@ const Services = () => {
   };
 
   const closeModal = () => {
-    setTitle("");
-    setSubtitle("");
+    setTitleEn("");
+    setSubtitleEn("");
+    setTitleAr("");
+    setSubtitleAr("");
     setImage(null);
     setModalStatus(false);
   };
@@ -54,25 +76,24 @@ const Services = () => {
     loadServices();
   }, []);
 
+  const deleteService = (serviceId) => {
+    remove(`/services/${serviceId}`).then((res) => {
+      loadServices();
+    });
+  }
+
   return (
     <div id={styles.services} className="__page">
       <SectionTitle
-        title={t("services")}
-        actionText="اضافة عضو"
+        title="الخدمات"
+        actionText="إضافة خدمة"
         onClick={() => setModalStatus(true)}
       />
 
       <div className={styles.servicesDetails}>
         {services.length > 0 &&
           services?.map((service, index) => {
-            return (
-              <CustomCard
-                key={index}
-                image={service?.image}
-                title={service?.title}
-                description={service?.subtitle}
-              />
-            );
+            return <CustomCard key={index} info={service} onDelete={() => deleteService(service?.id)} />;
           })}
       </div>
 
@@ -95,26 +116,54 @@ const Services = () => {
             </div>
             <TextField
               id="outlined-basic"
-              value={title}
-              onChange={(e) => setTitle(e.target.value)}
-              label="العنوان"
+              value={titleEn}
+              onChange={(e) => setTitleEn(e.target.value)}
+              label="العنوان (إنجليزي)"
+              variant="outlined"
+              className="textInput ltr"
+            />
+            <TextField
+              id="outlined-basic"
+              value={subtitleEn}
+              multiline
+              rows={4}
+              onChange={(e) => setSubtitleEn(e.target.value)}
+              label="الوصف (إنجليزي)"
+              variant="outlined"
+              className="textInput ltr"
+            />
+            <br />
+            <TextField
+              id="outlined-basic"
+              value={titleAr}
+              onChange={(e) => setTitleAr(e.target.value)}
+              label="العنوان (عربي)"
               variant="outlined"
               className="textInput"
             />
             <TextField
               id="outlined-basic"
-              value={subtitle}
+              value={subtitleAr}
               multiline
               rows={4}
-              onChange={(e) => setSubtitle(e.target.value)}
-              label="الوصف"
+              onChange={(e) => setSubtitleAr(e.target.value)}
+              label="الوصف (عربي)"
+              variant="outlined"
+              className="textInput"
+            />
+            <br />
+            <TextField
+              id="outlined-basic"
+              value={link}
+              onChange={(e) => setLink(e.target.value)}
+              label="رابط الحالات"
               variant="outlined"
               className="textInput"
             />
           </div>
 
           <div className="controls">
-            <Button variant="contained" onClick={addToServices}>
+            <Button variant="contained" onClick={addToService}>
               اضافة
             </Button>
             <Button variant="outlined" onClick={closeModal}>
@@ -127,12 +176,4 @@ const Services = () => {
   );
 };
 
-export default Services;
-
-export async function getStaticProps({ locale }) {
-  return {
-    props: {
-      ...(await serverSideTranslations(locale, ["common"])),
-    },
-  };
-}
+export default Service;

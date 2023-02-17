@@ -1,22 +1,21 @@
 import React, { useEffect, useState } from "react";
-import { useTranslation } from "next-i18next";
-import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { Button, Modal, TextField } from "@mui/material";
-import { get, post } from "@sa/utils/axios";
+import { get, post, remove } from "@sa/utils/axios";
 
 //components
-import { Banner, SectionTitle, CustomCard } from "@sa/components";
+import {SectionTitle, CustomCard } from "@sa/components";
 
 //styles
 import styles from "@sa/styles/pages/Team.module.scss";
 import assets from "@sa/assets";
 
 const Team = () => {
-  const { t } = useTranslation();
   const [team, setTeam] = useState([]);
   const [modalStatus, setModalStatus] = useState(false);
-  const [title, setTitle] = useState("");
-  const [subtitle, setSubtitle] = useState("");
+  const [titleEn, setTitleEn] = useState("");
+  const [subtitleEn, setSubtitleEn] = useState("");
+  const [titleAr, setTitleAr] = useState("");
+  const [subtitleAr, setSubtitleAr] = useState("");
   const [image, setImage] = useState("");
 
   const loadTeam = async () => {
@@ -33,8 +32,10 @@ const Team = () => {
 
   const addToStaff = () => {
     let data = new FormData();
-    data.append("title", title);
-    data.append("subtitle", subtitle);
+    data.append("titleEn", titleEn);
+    data.append("subtitleEn", subtitleEn);
+    data.append("titleAr", titleAr);
+    data.append("subtitleAr", subtitleAr);
     data.append("image", image);
 
     post('/staff', data).then(res => {
@@ -44,8 +45,10 @@ const Team = () => {
   };
 
   const closeModal = () => {
-    setTitle('');
-    setSubtitle('');
+    setTitleEn('');
+    setSubtitleEn('');
+    setTitleAr("");
+    setSubtitleAr("");
     setImage(null)
     setModalStatus(false);
   }
@@ -54,23 +57,28 @@ const Team = () => {
     loadTeam();
   }, []);
 
+    const deleteStaff = (userId) => {
+      remove(`/staff/${userId}`).then((res) => {
+        loadTeam();
+      });
+    };
+
   return (
     <div id={styles.team} className="__page">
       <SectionTitle
-        title={t("team")}
-        actionText="اضافة عضو"
+        title="فريق العمل"
+        actionText="إضافة عضو"
         onClick={() => setModalStatus(true)}
       />
 
       <div className={styles.servicesDetails}>
         {team.length > 0 &&
-          team?.map((team, index) => {
+          team?.map((user, index) => {
             return (
               <CustomCard
                 key={index}
-                title={team?.title}
-                image={team?.image}
-                description={team?.subtitle}
+                info={user}
+                onDelete={() => deleteStaff(user?.id)}
               />
             );
           })}
@@ -95,19 +103,38 @@ const Team = () => {
             </div>
             <TextField
               id="outlined-basic"
-              value={title}
-              onChange={(e) => setTitle(e.target.value)}
-              label="العنوان"
+              value={titleEn}
+              onChange={(e) => setTitleEn(e.target.value)}
+              label="العنوان (إنجليزي)"
               variant="outlined"
               className="textInput"
             />
             <TextField
               id="outlined-basic"
-              value={subtitle}
+              value={subtitleEn}
               multiline
               rows={4}
-              onChange={(e) => setSubtitle(e.target.value)}
-              label="الوصف"
+              onChange={(e) => setSubtitleEn(e.target.value)}
+              label="الوصف (إنجليزي)"
+              variant="outlined"
+              className="textInput"
+            />
+            <br />
+            <TextField
+              id="outlined-basic"
+              value={titleAr}
+              onChange={(e) => setTitleAr(e.target.value)}
+              label="العنوان (عربي)"
+              variant="outlined"
+              className="textInput"
+            />
+            <TextField
+              id="outlined-basic"
+              value={subtitleAr}
+              multiline
+              rows={4}
+              onChange={(e) => setSubtitleAr(e.target.value)}
+              label="الوصف (عربي)"
               variant="outlined"
               className="textInput"
             />
@@ -126,11 +153,3 @@ const Team = () => {
 };
 
 export default Team;
-
-export async function getStaticProps({ locale }) {
-  return {
-    props: {
-      ...(await serverSideTranslations(locale, ["common"])),
-    },
-  };
-}

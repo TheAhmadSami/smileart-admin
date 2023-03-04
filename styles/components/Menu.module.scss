@@ -7,7 +7,6 @@
   background-color: #ffffff;
   @include flex;
   @include flex-col;
-  justify-content: space-between;
   z-index: 9999;
   transition: all .3s;
 

@@ -233,21 +233,41 @@ a {
   }
 }
 
-.configs-container{
+.configs-container {
   @include flex-start-center;
   @include flex-wrap;
   gap: 20px;
   margin: 50px 0;
 }
 
-.textinput2{
+.textinput2 {
   max-width: 250px,
 }
 
-.rtl{
+.rtl {
   direction: rtl;
 }
 
-.ltr{
+.ltr {
   direction: ltr;
+}
+
+.flex-center-center {
+  @include flex-center-center;
+}
+
+.flex-start-center {
+  @include flex-start-center;
+}
+
+.gap10 {
+  gap: 10px;
+}
+
+.gap20 {
+  gap: 20px;
+}
+
+.gap30 {
+  gap: 30px;
 }

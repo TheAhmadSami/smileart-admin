@@ -42,7 +42,7 @@ const Menu = ({ mini }) => {
   ];
 
   return (
-    <div id={styles.menu} className={mini ? styles.mini : null}>
+    <div id={styles.menu}>
       {mini || (
         <Link href={`${router.locale}`} className={styles.logo}>
           <Image
@@ -68,7 +68,6 @@ const Menu = ({ mini }) => {
           />
         ))}
       </ul>
-      {mini || <WorkTimeCard />}
     </div>
   );
 };

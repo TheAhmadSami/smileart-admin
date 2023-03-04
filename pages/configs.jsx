@@ -16,6 +16,7 @@ const Gallery = () => {
     twitter: "",
     tiktok: "",
     youtube: "",
+    snapchat: "",
     youtubeVideo: "",
     phone: "",
     mobile: "",
@@ -97,6 +98,17 @@ const Gallery = () => {
 
         <TextField
           id="outlined-basic"
+          value={configs?.snapchat}
+          onChange={(e) =>
+            setConfigs({ ...configs, ["snapchat"]: e.target.value })
+          }
+          label="Snapchat Link"
+          variant="outlined"
+          className="textInput textinput2 ltr"
+        />
+
+        <TextField
+          id="outlined-basic"
           value={configs?.youtube}
           onChange={(e) =>
             setConfigs({ ...configs, ["youtube"]: e.target.value })
@@ -116,6 +128,8 @@ const Gallery = () => {
           variant="outlined"
           className="textInput textinput2 ltr"
         />
+        
+        
 
         <TextField
           id="outlined-basic"
@@ -193,7 +207,7 @@ const Gallery = () => {
           onChange={(e) =>
             setConfigs({ ...configs, ["wordAr"]: e.target.value })
           }
-          label="كلمة الدكتور مجدي (عربي)"
+          label="من هو الدكتور مجدي (عربي)"
           variant="outlined"
           className="textInput"
         />
@@ -204,11 +218,15 @@ const Gallery = () => {
           onChange={(e) =>
             setConfigs({ ...configs, ["wordEn"]: e.target.value })
           }
-          label="Dr. Magdy Word (English)"
+          label="Who is Dr. Magdy (English)"
           variant="outlined"
           className="textInput ltr"
         />
       </div>
+
+      <br />
+      <br />
+      <br />
 
       <Button variant="contained" onClick={saveConfigs}>
         حفظ

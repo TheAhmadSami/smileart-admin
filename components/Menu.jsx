@@ -34,6 +34,18 @@ const Menu = ({ mini }) => {
       icon: "fal fa-images",
     },
     {
+      label: "آراء العملاء (فيسبوك)",
+      route: 'feedback-facebook',
+      name: "/feedback-facebook",
+      icon: "fal fa-images",
+    },
+    {
+      label: "آراء العملاء (واتساب)",
+      route: 'feedback-whatsapp',
+      name: "/feedback-whatsapp",
+      icon: "fal fa-images",
+    },
+    {
       label: "أخرى",
       route: 'configs',
       name: "/configs",

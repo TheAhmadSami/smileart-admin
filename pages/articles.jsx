@@ -14,7 +14,7 @@ import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 
 //components
-import { ArticleCard, SectionTitle } from "@sa/components";
+import { ArticleCard, CategoryCard, SectionTitle } from "@sa/components";
 
 //styles
 import styles from "@sa/styles/pages/Article.module.scss";
@@ -22,19 +22,25 @@ import assets from "@sa/assets";
 import { put } from "@sa/utils/axios";
 
 const Team = () => {
+  //category
   const [categories, setCategories] = useState([]);
-  const [category, setCategory] = useState();
-  const [articles, setArticles] = useState([]);
-  const [modalStatus, setModalStatus] = useState(false);
+  const [categoryModalStatus, setCategoryModalStatus] = useState(false);
+  const [nameEn, setNameEn] = useState("");
+  const [nameAr, setNameAr] = useState("");
+  const [activeCategory, setActiveCategory] = useState("");
+
+  //article
+  const [articleModalStatus, setArticleModalStatus] = useState(false);
   const [titleEn, setTitleEn] = useState("");
   const [titleAr, setTitleAr] = useState("");
   const [contentEn, setContentEn] = useState("");
   const [contentAr, setContentAr] = useState("");
+  const [category, setCategory] = useState();
   const [activeArticle, setActiveArticle] = useState("");
 
-  const [modules, setModules] = useState({
+  const modules = {
     toolbar: [
-      [{ header: [1, 2, false] }],
+      [{ header: [1, 2, 3, 4, 5, false] }],
       ["bold", "italic", "underline", "strike", "blockquote"],
       [
         { list: "ordered" },
@@ -48,13 +54,21 @@ const Team = () => {
         { align: "right" },
         { align: "justify" },
       ],
+      [
+        {
+          color: ["red", "blue", "yellow"],
+        },
+      ],
       ["link", "image", "video"],
       ["clean"],
       [{ direction: "rtl" }, { direction: "ltr" }],
     ],
-  });
+    clipboard: {
+      matchVisual: false,
+    },
+  };
 
-  const [formats, setFormats] = useState([
+  const formats = [
     "header",
     "bold",
     "italic",
@@ -69,27 +83,57 @@ const Team = () => {
     "video",
     "align",
     "direction",
-  ]);
+    "color",
+  ];
 
+  //catgeory
   const loadCategories = async () => {
     get("/category").then((res) => {
       setCategories(res.data);
     });
   };
 
-  const loadArticles = async () => {
-    get("/article").then((res) => {
-      setArticles(res.data);
+  const closeCategoryModal = () => {
+    setNameEn("");
+    setNameAr("");
+    setActiveCategory("");
+    setCategoryModalStatus(false);
+  };
+
+  const addCategory = () => {
+    let data = new FormData();
+    data.append("nameAr", nameAr);
+    data.append("nameEn", nameEn);
+    post("/category", data).then((res) => {
+      closeCategoryModal();
+      loadCategories();
     });
   };
 
-  const closeModal = () => {
+  const deleteCategory = (category) => {
+    remove(`/category/${category?.id}`).then((res) => {
+      loadCategories();
+    });
+  };
+
+  const editCategory = () => {
+    let data = new FormData();
+    data.append("nameAr", nameAr);
+    data.append("nameEn", nameEn);
+    data.append("id", activeCategory?.id);
+    put("/category", data).then((res) => {
+      closeModal();
+      loadCategories();
+    });
+  };
+
+  const closeArticleModal = () => {
     setTitleEn("");
     setTitleAr("");
     setContentEn("");
     setContentAr("");
     setActiveArticle("");
-    setModalStatus(false);
+    setArticleModalStatus(false);
   };
 
   const addArticle = () => {
@@ -98,7 +142,7 @@ const Team = () => {
     if ((!titleEn, !titleAr, !contentEn, !contentAr))
       alert("قم بملئ جميع الحقول");
 
-    if (!category) alert("قم باختيار القسم الخاصة بالمقالة");
+    if (!category) alert("قم باختيار القسم الخاص بالمقالة");
 
     let data = new FormData();
     data.append("titleAr", titleAr);
@@ -109,54 +153,150 @@ const Team = () => {
 
     if (checker) {
       post("/article", data).then((res) => {
-        closeModal();
-        loadArticles();
+        closeArticleModal();
+        loadCategories();
       });
     }
   };
 
-  const deleteArticle = () => {};
+  const deleteArticle = (articleId) => {
+    remove(`/article/${articleId}`).then((res) => {
+      loadCategories();
+    });
+  }
 
-  const editArticle = (article) => {
+  const openEditArticle = (article) => {
     setTitleAr(article?.titleAr);
     setTitleEn(article?.titleEn);
     setContentAr(article?.contentAr);
     setContentEn(article?.contentEn);
     setCategory(article?.categoryId);
     setActiveArticle(article);
-    setModalStatus(true);
+    setArticleModalStatus(true);
+  };
+
+  const editArticle = () => {
+    let checker = true;
+
+    if ((!titleEn, !titleAr, !contentEn, !contentAr))
+      alert("قم بملئ جميع الحقول");
+
+    if (!category) alert("قم باختيار القسم الخاص بالمقالة");
+
+    let data = new FormData();
+    data.append("articleId", activeArticle?.id);
+    data.append("titleAr", titleAr);
+    data.append("titleEn", titleEn);
+    data.append("contentAr", contentAr);
+    data.append("contentEn", contentEn);
+    data.append("categoryId", category);
+
+    if (checker) {
+      put("/article", data).then((res) => {
+        closeArticleModal();
+        loadCategories();
+      });
+    }
   };
 
   useEffect(() => {
     loadCategories();
-    loadArticles();
   }, []);
 
   return (
     <div id={styles.article} className="__page">
-      <div className={styles.categoryContainer}></div>
-
       <SectionTitle
-        title="المقالات"
-        actionText="إضافة مقالة"
-        onClick={() => setModalStatus(true)}
+        title="الأقسام"
+        actionText="إضافة قسم"
+        onClick={() => setCategoryModalStatus(true)}
       />
 
-      <div className="articlesContainer">
-        {articles?.map((article) => (
-          <ArticleCard
-            key={article?.id}
-            article={article}
-            onClick={() => editArticle(article)}
-            onDelete={deleteArticle}
-            onEdit={editArticle}
-          />
-        ))}
+      <div className={styles.articleContainer}>
+        {categories?.length > 0 &&
+          categories?.map((category, i) => (
+            <CategoryCard
+              key={i}
+              category={category}
+              onDelete={() => deleteCategory(category)}
+              onEdit={() => {
+                setNameAr(category?.nameAr);
+                setNameEn(category?.nameEn);
+                setActiveCategory(category);
+                setCategoryModalStatus(true);
+              }}
+            />
+          ))}
       </div>
 
       <Modal
-        open={modalStatus}
-        onClose={() => setModalStatus(false)}
+        open={categoryModalStatus}
+        onClose={() => setCategoryModalStatus(false)}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <div className="modal">
+          <div className={styles.addstaffContainer}>
+            <TextField
+              id="outlined-basic"
+              value={nameAr}
+              onChange={(e) => setNameAr(e.target.value)}
+              label="اسم القسم (عربي)"
+              variant="outlined"
+              className="textInput"
+            />
+            <TextField
+              id="outlined-basic"
+              value={nameEn}
+              onChange={(e) => setNameEn(e.target.value)}
+              label="اسم القسم (انجليزي)"
+              variant="outlined"
+              className="textInput"
+            />
+          </div>
+
+          <div className="controls">
+            {activeCategory ? (
+              <Button variant="contained" onClick={editCategory}>
+                تعديل
+              </Button>
+            ) : (
+              <Button variant="contained" onClick={addCategory}>
+                اضافة
+              </Button>
+            )}
+            <Button variant="outlined" onClick={closeCategoryModal}>
+              الغاء
+            </Button>
+          </div>
+        </div>
+      </Modal>
+
+      {categories?.length > 0 &&
+        categories?.map((category) => (
+          <div key={category?.id} className={styles.categoryContainer}>
+            <SectionTitle
+              title={`${category?.nameAr} (${category?.nameEn})`}
+              actionText="إضافة مقالة"
+              onClick={() => setArticleModalStatus(true)}
+            />
+            <div className={styles.articleContainer}>
+              {category?.articles?.length > 0 &&
+                category?.articles?.map((article) => (
+                  <ArticleCard
+                    key={article?.id}
+                    article={article}
+                    onClick={() => openEditArticle(article)}
+                    onDelete={() => deleteArticle(article?.id)}
+                    onEdit={() => openEditArticle(article)}
+                  />
+                ))}
+            </div>
+          </div>
+        ))}
+
+      <Modal
+        open={articleModalStatus}
+        onClose={() => setArticleModalStatus(false)}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
@@ -230,7 +370,7 @@ const Team = () => {
                 اضافة
               </Button>
             )}
-            <Button variant="outlined" onClick={closeModal}>
+            <Button variant="outlined" onClick={closeArticleModal}>
               الغاء
             </Button>
           </div>

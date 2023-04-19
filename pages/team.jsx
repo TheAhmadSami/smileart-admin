@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { Button, Modal, TextField } from "@mui/material";
-import { get, post, remove } from "@sa/utils/axios";
+import { get, post, put, remove } from "@sa/utils/axios";
 
 //components
-import {SectionTitle, CustomCard } from "@sa/components";
+import { SectionTitle, CustomCard } from "@sa/components";
 
 //styles
 import styles from "@sa/styles/pages/Team.module.scss";
@@ -12,10 +12,11 @@ import assets from "@sa/assets";
 const Team = () => {
   const [team, setTeam] = useState([]);
   const [modalStatus, setModalStatus] = useState(false);
-  const [titleEn, setTitleEn] = useState("");
-  const [subtitleEn, setSubtitleEn] = useState("");
   const [titleAr, setTitleAr] = useState("");
   const [subtitleAr, setSubtitleAr] = useState("");
+  const [titleEn, setTitleEn] = useState("");
+  const [subtitleEn, setSubtitleEn] = useState("");
+  const [activeUser, setActiveUser] = useState();
   const [image, setImage] = useState("");
 
   const loadTeam = async () => {
@@ -38,30 +39,60 @@ const Team = () => {
     data.append("subtitleAr", subtitleAr);
     data.append("image", image);
 
-    post('/staff', data).then(res => {
+    post("/staff", data).then((res) => {
       closeModal();
       loadTeam();
-    })
+    });
   };
 
   const closeModal = () => {
-    setTitleEn('');
-    setSubtitleEn('');
+    setTitleEn("");
+    setSubtitleEn("");
     setTitleAr("");
     setSubtitleAr("");
-    setImage(null)
+    setActiveUser();
+    setImage(null);
     setModalStatus(false);
-  }
+  };
+
+  const deleteStaff = (userId) => {
+    remove(`/staff/${userId}`).then((res) => {
+      loadTeam();
+    });
+  };
+
+  const openEditUser = (user) => {
+    setTitleAr(user?.titleAr);
+    setSubtitleAr(user?.subtitleAr);
+    setTitleEn(user?.titleEn);
+    setSubtitleEn(user?.subtitleEn);
+    setActiveUser(user);
+    setModalStatus(true);
+  };
+
+  const editUser = () => {
+    let data = new FormData();
+    data.append("userId", activeUser?.id);
+    data.append("titleAr", titleAr);
+    data.append("subtitleAr", subtitleAr);
+    data.append("titleEn", titleEn);
+    data.append("subtitleEn", subtitleEn);
+    data.append("rawImage", activeUser?.rawImage);
+    if (image) {
+      data.append("image", image);
+    }
+
+    console.log(activeUser);
+
+    put("/staff", data).then((res) => {
+      closeModal();
+      loadTeam();
+    });
+  };
 
   useEffect(() => {
     loadTeam();
   }, []);
-
-    const deleteStaff = (userId) => {
-      remove(`/staff/${userId}`).then((res) => {
-        loadTeam();
-      });
-    };
 
   return (
     <div id={styles.team} className="__page">
@@ -78,6 +109,7 @@ const Team = () => {
               <CustomCard
                 key={index}
                 info={user}
+                onEdit={() => openEditUser(user)}
                 onDelete={() => deleteStaff(user?.id)}
               />
             );
@@ -95,7 +127,13 @@ const Team = () => {
             <div
               className={styles.userImage}
               style={{
-                backgroundImage: `url(${image && URL.createObjectURL(image)})`,
+                backgroundImage: `url(${
+                  image
+                    ? URL.createObjectURL(image)
+                    : activeUser
+                    ? activeUser?.image
+                    : null
+                })`,
               }}
             >
               <input type="file" onChange={onImageChange} />
@@ -141,7 +179,15 @@ const Team = () => {
           </div>
 
           <div className="controls">
-            <Button variant="contained" onClick={addToStaff}>اضافة</Button>
+            {activeUser ? (
+              <Button variant="contained" onClick={editUser}>
+                تعديل
+              </Button>
+            ) : (
+              <Button variant="contained" onClick={addToStaff}>
+                اضافة
+              </Button>
+            )}
             <Button variant="outlined" onClick={closeModal}>
               الغاء
             </Button>

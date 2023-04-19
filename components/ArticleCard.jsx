@@ -6,8 +6,8 @@ import styles from "@sa/styles/components/ArticleCard.module.scss";
 
 const ArticleCard = ({ article, onClick, onDelete, onEdit }) => {
   return (
-    <div className={styles.categoryCard} onClick={onClick}>
-      <div>
+    <div className={styles.categoryCard}>
+      <div onClick={onClick} style={{ cursor: "pointer" }}>
         <p>{article?.titleAr}</p>
         <p>{article?.titleEn}</p>
       </div>

@@ -7,7 +7,7 @@
   background-color: #ffffff;
   @include flex;
   @include flex-col;
-  z-index: 9999;
+  z-index: 100;
   transition: all .3s;
 
   .logo {

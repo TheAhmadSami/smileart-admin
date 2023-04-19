@@ -68,7 +68,7 @@ export const get = async (url, params = {}) => {
     });
 };
 
-export const remove = async (url, params = {}) => {
+export const remove = async (url,  data) => {
   
   // let token = await getData('user_t');
   // token && data.append('token', token);
@@ -76,7 +76,7 @@ export const remove = async (url, params = {}) => {
   return await axios({
     method: 'DELETE',
     url: apiLink + url,
-    params: params,
+    data: data,
     validateStatus: () => true,
   })
     .then(response => {

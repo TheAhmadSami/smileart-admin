@@ -1,7 +1,7 @@
 @import './../mixins';
 
 .articleModal {
-  width: calc(100% - 250px);
+  width: 100%;
   height: 100%;
   background: #fff;
   position: absolute;
@@ -11,34 +11,38 @@
   top: 0;
   left: 0;
   padding: 0 20px 20px 20px;
+}
 
-  .articleContainer {
-    @include flex-start-start;
-    align-items: stretch;
-    flex: 1;
-    overflow: hidden;
-    padding: 20px 0;
-    gap: 20px;
-  }
 
-  
-  .arabicSection,
-  .EnglishSection {
-    @include flex;
-    flex-direction: column;
-    flex: 1;
-    gap: 10px
-  }
+.categoryContainer{
+  width: 100%;
+}
 
-  .editorContainer {
-    @include flex;
-    flex: 1;
-    overflow: hidden;
-  }
+.articleContainer {
+  @include flex-start-start;
+  align-items: stretch;
+  flex: 1;
+  overflow: hidden;
+  padding: 20px 0;
+  gap: 20px;
+}
 
-  .controls {
-    @include flex-center-center;
-    gap: 20px;
-  }
 
+.arabicSection,
+.EnglishSection {
+  @include flex;
+  flex-direction: column;
+  flex: 1;
+  gap: 10px
+}
+
+.editorContainer {
+  @include flex;
+  flex: 1;
+  overflow: hidden;
+}
+
+.controls {
+  @include flex-center-center;
+  gap: 20px;
 }

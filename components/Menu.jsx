@@ -22,12 +22,6 @@ const Menu = ({ mini }) => {
       icon: "fal fa-hand-holding-medical",
     },
     {
-      label: "الأقسام",
-      route: "categories",
-      name: "/categories",
-      icon: "fal fa-folders",
-    },
-    {
       label: "المقالات",
       route: "articles",
       name: "/articles",
@@ -40,9 +34,9 @@ const Menu = ({ mini }) => {
       icon: "fal fa-user-md",
     },
     {
-      label: "معرض الصور",
-      route: "gallery",
-      name: "/gallery",
+      label: "ألبومات الصور",
+      route: "albums",
+      name: "/albums",
       icon: "fal fa-images",
     },
     {

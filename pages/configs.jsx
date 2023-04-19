@@ -7,7 +7,7 @@ import { get, post } from "@sa/utils/axios";
 import { SectionTitle } from "@sa/components";
 
 //styles
-import styles from "@sa/styles/pages/Gallery.module.scss";
+import styles from "@sa/styles/pages/Albums.module.scss";
 
 const Gallery = () => {
   const [configs, setConfigs] = useState({

@@ -11,4 +11,6 @@ export { default as FeedVideo } from "./FeedVideo";
 export { default as FacebookFeed } from "./FacebookFeed";
 export { default as ModalImage } from "./ModalImage";
 export { default as TextInput } from "./TextInput";
+export { default as CategoryCard } from "./CategoryCard";
+export { default as ArticleCard } from "./ArticleCard";
 

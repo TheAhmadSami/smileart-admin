@@ -1,0 +1,8 @@
+@import './../mixins';
+
+.categoryContainer {
+  width: 100%;
+  @include flex-start-start;
+  @include flex-wrap;
+  gap: 10px;
+}

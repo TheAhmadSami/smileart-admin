@@ -17,40 +17,52 @@ const Menu = ({ mini }) => {
   const menuItems = [
     {
       label: "الخدمات",
-      route: '/',
+      route: "/",
       name: "/",
       icon: "fal fa-hand-holding-medical",
     },
     {
+      label: "الأقسام",
+      route: "categories",
+      name: "/categories",
+      icon: "fal fa-folders",
+    },
+    {
+      label: "المقالات",
+      route: "articles",
+      name: "/articles",
+      icon: "fal fa-file",
+    },
+    {
       label: "فريق العمل",
-      route: 'team',
+      route: "team",
       name: "/team",
       icon: "fal fa-user-md",
     },
     {
       label: "معرض الصور",
-      route: 'gallery',
+      route: "gallery",
       name: "/gallery",
       icon: "fal fa-images",
     },
     {
       label: "آراء العملاء (فيسبوك)",
-      route: 'feedback-facebook',
-      name: "/feedback-facebook",
+      route: "reviews-facebook",
+      name: "/reviews-facebook",
       icon: "fal fa-images",
     },
     {
-      label: "آراء العملاء (واتساب)",
-      route: 'feedback-whatsapp',
-      name: "/feedback-whatsapp",
+      label: "آراء العملاء (جوجل)",
+      route: "reviews-google",
+      name: "/reviews-google",
       icon: "fal fa-images",
     },
     {
       label: "أخرى",
-      route: 'configs',
+      route: "configs",
       name: "/configs",
       icon: "fal fa-cog",
-    }
+    },
   ];
 
   return (

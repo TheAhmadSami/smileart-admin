@@ -1,6 +1,6 @@
 @import './../mixins';
 
-#feedback {
+#reviews {
 
 
   .content {
@@ -51,7 +51,7 @@
   }
 }
 
-.addFeedbackContainer {
+.addReviewsContainer {
   @include flex-center-center;
   @include flex-col;
   gap: 10px;

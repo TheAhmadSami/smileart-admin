@@ -28,8 +28,8 @@ const Gallery = () => {
     titleEn: "",
     titleAr: "",
     email: "",
-    fromDay: '',
-    toDay: '',
+    fromDay: 'saturday',
+    toDay: 'saturday',
     fromTime: '',
     toTime: '',
   });
@@ -46,15 +46,14 @@ const Gallery = () => {
 
   const saveConfigs = () => {
     let data = new FormData();
+    console.log(configs);
     data.append("configs", JSON.stringify(configs));
 
     post("/configs", data).then((res) => {
       alert("تم حفظ البيانات بنجاح");
     });
   };
-  useEffect(() => {
-    console.log('fromDay=-=-=-=-=-=-', configs);
-  }, [configs]);
+
 
   return (
     <div id={styles.gallery} className="__page">
@@ -284,7 +283,7 @@ const Gallery = () => {
               <Select
                 labelId="demo-simple-select-label"
                 id="demo-simple-select"
-                defaultValue={configs?.fromDay}
+                value={configs?.fromDay}
                 label="اليوم"
                 onChange={(e) =>
                   setConfigs({ ...configs, ["fromDay"]: e.target.value })
@@ -310,7 +309,7 @@ const Gallery = () => {
               <Select
                 labelId="demo-simple-select-label"
                 id="demo-simple-select"
-                defaultValue={configs?.toDay}
+                value={configs?.toDay}
                 label="اليوم"
                 onChange={(e) =>
                   setConfigs({ ...configs, ["toDay"]: e.target.value })

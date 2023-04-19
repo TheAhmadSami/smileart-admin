@@ -185,6 +185,17 @@ a {
   text-decoration: none;
 }
 
+.quill {
+  @include flex;
+  flex-direction: column;
+}
+
+
+.ql-container {
+  flex: 1;
+  overflow-y: auto;
+}
+
 .modal {
   width: 400px;
   max-height: 90%;

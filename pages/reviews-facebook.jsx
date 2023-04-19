@@ -8,17 +8,18 @@ import { get, post, remove } from "@sa/utils/axios";
 import { SectionTitle } from "@sa/components";
 
 //styles
-import styles from "@sa/styles/pages/Feedback.module.scss";
+import styles from "@sa/styles/pages/Reviews.module.scss";
 
-const Feedback = () => {
-  const [feedback, setFeedback] = useState([]);
+const Reviews = () => {
+  const [reviews, setReviews] = useState([]);
   const [modalStatus, setModalStatus] = useState(false);
   const [imageModal, setImageModal] = useState(false);
   const [image, setImage] = useState("");
+  const [type, setType] = useState("");
 
-  const loadFeedback = async () => {
-    get("/feedback-whatsapp").then((res) => {
-      setFeedback(res.data);
+  const loadReviews = async () => {
+    get("/reviews-facebook").then((res) => {
+      setReviews(res.data);
     });
   };
 
@@ -28,13 +29,14 @@ const Feedback = () => {
     }
   };
 
-  const addToFeedback = () => {
+  const addToReviews = () => {
     let data = new FormData();
     data.append("image", image);
+    data.append("type", type);
 
-    post("/feedback-whatsapp", data).then((res) => {
+    post("/reviews-facebook", data).then((res) => {
       closeModal();
-      loadFeedback();
+      loadReviews();
     });
   };
 
@@ -44,27 +46,27 @@ const Feedback = () => {
   };
 
   const deleteImage = (imageId) => {
-    remove(`/feedback-whatsapp/${imageId}`).then((res) => {
+    remove(`/reviews-facebook/${imageId}`).then((res) => {
       closeModal();
-      loadFeedback();
+      loadReviews();
     });
   };
 
   useEffect(() => {
-    loadFeedback();
+    loadReviews();
   }, []);
 
   return (
-    <div id={styles.feedback} className="__page">
+    <div id={styles.reviews} className="__page">
       <SectionTitle
-        title="آراء العملاء (واتساب)"
+        title="آراء العملاء (فيسبوك)"
         actionText="اضافة"
         onClick={() => setModalStatus(true)}
       />
 
       <div className={styles.content}>
-        {feedback.length > 0 &&
-          feedback?.map((item, index) => {
+        {reviews.length > 0 &&
+          reviews?.map((item, index) => {
             return (
               <div key={index} className={styles.imageContainer}>
                 <img
@@ -91,7 +93,7 @@ const Feedback = () => {
           <SimpleImageSlider
             width={1920 / 2.5}
             height={1080 / 2.5}
-            images={feedback}
+            images={reviews}
             showBullets={true}
             showNavs={true}
           />
@@ -106,7 +108,7 @@ const Feedback = () => {
         aria-describedby="modal-modal-description"
       >
         <div className="modal">
-          <div className={styles.addFeedbackContainer}>
+          <div className={styles.addReviewsContainer}>
             <div
               className={styles.userImage}
               style={{
@@ -119,7 +121,7 @@ const Feedback = () => {
           </div>
 
           <div className="controls">
-            <Button variant="contained" onClick={addToFeedback}>
+            <Button variant="contained" onClick={addToReviews}>
               اضافة
             </Button>
             <Button variant="outlined" onClick={closeModal}>
@@ -132,4 +134,4 @@ const Feedback = () => {
   );
 };
 
-export default Feedback;
+export default Reviews;

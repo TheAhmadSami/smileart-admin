@@ -54,130 +54,14 @@ body {
       gap: 10px;
     }
   }
+}
 
-  #__video-body {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    z-index: 1;
-
-    .video-container {
-      width: 100vw;
-      height: 100vh;
-      overflow: hidden;
-      position: relative;
-
-      &::before {
-        position: absolute;
-        content: "";
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(90, 68, 1, 0.7);
-      }
-
-      .video {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        object-position: center;
-        overflow: hidden;
-      }
-    }
-
-    .call-us {
-      @include flex-start-center;
-      position: absolute;
-      top: 20px;
-      left: 20px;
-      z-index: 5;
-
-      .icon {
-        width: 42px;
-        height: 42px;
-        border-radius: 100%;
-        background: rgba(255, 255, 255, 0.32);
-        @include flex-center-center;
-        @include me(10px);
-
-        i {
-          font-size: 15px;
-          color: #fff;
-        }
-      }
-
-      p {
-        &:first-child {
-          font-size: 12px;
-          color: rgba(255, 255, 255, 0.87);
-        }
-
-        &:last-child {
-          font-weight: 600;
-          color: rgba(255, 255, 255, 0.87);
-          direction: ltr;
-        }
-      }
-    }
-
-    .infoContainer {
-      position: absolute;
-      bottom: 80px;
-      width: 70%;
-      right: 150px;
-      z-index: 5;
-
-      .pillsContainer {
-        @include flex-start-center;
-        gap: 10px;
-        margin-bottom: 15px;
-
-        .pill {
-          @include flex-start-center;
-          padding: 10px 20px;
-          background: rgba(255, 255, 255, 0.26);
-          color: #ffffff;
-          border-radius: 150px;
-          cursor: pointer;
-          @include transition;
-          white-space: nowrap;
-
-          &:hover {
-            background: #fff;
-            color: #222222;
-          }
-
-          &.active {
-            background: #fff;
-            color: #222222;
-          }
-        }
-      }
-
-      .content {
-        display: none;
-
-        .title {
-          font-size: 40px;
-          font-weight: 700;
-          color: #fff;
-          margin-bottom: 20px;
-        }
-
-        .desc {
-          color: #fff;
-          line-height: 1.7
-        }
-
-        &.active {
-          @include flex-start-center;
-        }
-      }
-    }
-  }
+#__login {
+  @include flex-center-center;
+  @include flex-col;
+  width: 100%;
+  height: 100%;
+  gap: 20px;
 }
 
 a {
@@ -294,16 +178,6 @@ body {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-}
-
-@media only screen and (max-width: 1200px) {
-  #__main {
-    #__body {
-      #__feed {
-        display: none;
-      }
-    }
-  }
 }
 
 .configs-container {

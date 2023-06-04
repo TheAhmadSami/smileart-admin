@@ -31,6 +31,7 @@ const Gallery = () => {
     keywords: "",
   });
 
+  const [password, setPassword] = useState(null);
   const [image, setImage] = useState(null);
   const [articlePageImage, setArticlePageImage] = useState(null);
 
@@ -69,6 +70,19 @@ const Gallery = () => {
   const onImageChange = (event) => {
     if (event.target.files && event.target.files[0]) {
       setImage(event.target.files[0]);
+    }
+  };
+
+  const changePass = () => {
+    if (password) {
+      let data = new FormData();
+      data.append("password", password);
+
+      post("/change-password", data).then((res) => {
+        alert("تم تغيير كلمة المرور بنجاح");
+      });
+    } else {
+      alert("لا يمكن ترك كلمة المرور فارغة");
     }
   };
 
@@ -303,6 +317,28 @@ const Gallery = () => {
 
       <Button variant="contained" onClick={saveConfigs}>
         حفظ
+      </Button>
+
+      <br />
+      <br />
+      <br />
+
+      <SectionTitle title="كلمة المرور" />
+      <br />
+
+      <TextField
+        id="outlined-basic"
+        value={password}
+        onChange={(e) => setPassword(e.target.value)}
+        label="كلمة المرور"
+        variant="outlined"
+        className="textInput ltr"
+      />
+      <br />
+      <br />
+      
+      <Button variant="contained" onClick={changePass}>
+        تغيير كلمة المرور
       </Button>
     </div>
   );

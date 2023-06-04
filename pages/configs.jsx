@@ -1,13 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 import React, { useEffect, useState } from "react";
-import {
-  Button,
-  FormControl,
-  InputLabel,
-  MenuItem,
-  Select,
-  TextField,
-} from "@mui/material";
+import { Button, TextField } from "@mui/material";
 import { get, post } from "@sa/utils/axios";
 
 //components
@@ -38,9 +31,15 @@ const Gallery = () => {
     keywords: "",
   });
 
+  const [image, setImage] = useState(null);
+  const [articlePageImage, setArticlePageImage] = useState(null);
+
   const loadConfigs = async () => {
     get("/configs").then((res) => {
-      if (res?.data) setConfigs(res.data[0]);
+      if (res?.data) {
+        setConfigs(res?.data?.[0]);
+        setArticlePageImage(res?.data?.[0]?.articleImage);
+      }
     });
   };
 
@@ -58,8 +57,45 @@ const Gallery = () => {
     });
   };
 
+  const saveArticleImage = () => {
+    let data = new FormData();
+    data.append("image", image);
+
+    post("/article-image", data).then((res) => {
+      alert("تم حفظ البيانات بنجاح");
+    });
+  };
+
+  const onImageChange = (event) => {
+    if (event.target.files && event.target.files[0]) {
+      setImage(event.target.files[0]);
+    }
+  };
+
   return (
     <div id={styles.gallery} className="__page">
+      <SectionTitle title="صورة صفحة المقالات" />
+      <div
+        className="articleImage"
+        style={{
+          backgroundImage: `url(${
+            image ? URL.createObjectURL(image) : articlePageImage ?? null
+          })`,
+        }}
+      >
+        <input type="file" onChange={onImageChange} />
+        {!image && !articlePageImage && <i className="fas fa-camera"></i>}
+      </div>
+      <br />
+
+      <Button variant="contained" onClick={saveArticleImage}>
+        حفظ الصورة
+      </Button>
+
+      <br />
+      <br />
+      <br />
+
       <SectionTitle title="أخرى" />
 
       <div className="configs-container">

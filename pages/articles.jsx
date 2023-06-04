@@ -189,7 +189,7 @@ const Article = () => {
   const editArticle = () => {
     let checker = true;
 
-    if ((!titleEn, !titleAr, !contentEn, !contentAr, !image)) {
+    if ((!titleEn, !titleAr, !contentEn, !contentAr)) {
       checker = false;
       alert("قم بملئ جميع الحقول");
     }
@@ -207,7 +207,7 @@ const Article = () => {
       data.append("contentAr", contentAr);
       data.append("contentEn", contentEn);
       data.append("categoryId", category);
-      data.append("image", image);
+      // data.append("image", image);
       put("/article", data).then((res) => {
         closeArticleModal();
         loadCategories();
@@ -323,7 +323,7 @@ const Article = () => {
         aria-describedby="modal-modal-description"
       >
         <div className={styles.articleModal}>
-          <div
+          {/* <div
             className="articleImage"
             style={{
               backgroundImage: `url(${
@@ -339,7 +339,7 @@ const Article = () => {
             {!image && !activeArticle?.image && (
               <i className="fas fa-camera"></i>
             )}
-          </div>
+          </div> */}
           <div className="articleContainer">
             <div className="arabicSection">
               <TextField

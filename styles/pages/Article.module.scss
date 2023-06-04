@@ -6,7 +6,6 @@
   background: #fff;
   position: absolute;
   @include flex;
-  gap: 20px;
   flex-direction: column;
   top: 0;
   left: 0;
@@ -14,33 +13,12 @@
 }
 
 
-.categoryContainer{
+.categoryContainer {
   width: 100%;
 }
 
-.articleContainer {
-  @include flex-start-start;
-  align-items: stretch;
-  flex: 1;
-  overflow: hidden;
-  padding: 20px 0;
-  gap: 20px;
-}
 
 
-.arabicSection,
-.EnglishSection {
-  @include flex;
-  flex-direction: column;
-  flex: 1;
-  gap: 10px
-}
-
-.editorContainer {
-  @include flex;
-  flex: 1;
-  overflow: hidden;
-}
 
 .controls {
   @include flex-center-center;

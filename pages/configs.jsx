@@ -28,10 +28,6 @@ const Gallery = () => {
     titleEn: "",
     titleAr: "",
     email: "",
-    fromDay: 'saturday',
-    toDay: 'saturday',
-    fromTime: '',
-    toTime: '',
   });
 
   const loadConfigs = async () => {
@@ -253,85 +249,6 @@ const Gallery = () => {
           className="textInput ltr"
         />
       </div>
-
-      <h2>أوقات العمل</h2>
-      <div className="flex-start-center gap20">
-        <div>
-          <div className='flex-start-center gap10'>
-            <p>من</p>
-            <input type="time" value={configs?.fromTime} onChange={(e) => setConfigs({ ...configs, ["fromTime"]: e.target.value })} />
-          </div>
-        </div>
-
-        <div>
-          <div className='flex-start-center gap10'>
-            <p>إلى</p>
-            <input type="time" value={configs?.toTime} onChange={(e) => setConfigs({ ...configs, ["toTime"]: e.target.value })} />
-          </div>
-        </div>
-      </div>
-
-      <br />
-
-      <h2>أيام العمل</h2>
-      <div className="flex-start-center gap20">
-        <div>
-          <div className='flex-start-center gap10'>
-            <p>من</p>
-            <FormControl fullWidth style={{ width: '200px' }}>
-              <InputLabel id="demo-simple-select-label">اليوم</InputLabel>
-              <Select
-                labelId="demo-simple-select-label"
-                id="demo-simple-select"
-                value={configs?.fromDay}
-                label="اليوم"
-                onChange={(e) =>
-                  setConfigs({ ...configs, ["fromDay"]: e.target.value })
-                }
-              >
-                <MenuItem value='saturday'>السبت</MenuItem>
-                <MenuItem value='sunday'>الأحد</MenuItem>
-                <MenuItem value='monday'>الإثنين</MenuItem>
-                <MenuItem value='tuesday'>الثلاثاء</MenuItem>
-                <MenuItem value='wednesday'>الأربعاء</MenuItem>
-                <MenuItem value='thursday'>الخميس</MenuItem>
-                <MenuItem value='friday'>الجمعة</MenuItem>
-              </Select>
-            </FormControl>
-          </div>
-        </div>
-
-        <div>
-          <div className='flex-start-center gap10'>
-            <p>إلى</p>
-            <FormControl fullWidth style={{ width: '200px' }}>
-              <InputLabel id="demo-simple-select-label">اليوم</InputLabel>
-              <Select
-                labelId="demo-simple-select-label"
-                id="demo-simple-select"
-                value={configs?.toDay}
-                label="اليوم"
-                onChange={(e) =>
-                  setConfigs({ ...configs, ["toDay"]: e.target.value })
-                }
-              >
-                <MenuItem value='saturday'>السبت</MenuItem>
-                <MenuItem value='sunday'>الأحد</MenuItem>
-                <MenuItem value='monday'>الإثنين</MenuItem>
-                <MenuItem value='tuesday'>الثلاثاء</MenuItem>
-                <MenuItem value='wednesday'>الأربعاء</MenuItem>
-                <MenuItem value='thursday'>الخميس</MenuItem>
-                <MenuItem value='friday'>الجمعة</MenuItem>
-              </Select>
-            </FormControl>
-          </div>
-        </div>
-      </div>
-
-
-
-      <br />
-
 
       <Button variant="contained" onClick={saveConfigs}>
         حفظ

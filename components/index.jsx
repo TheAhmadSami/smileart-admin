@@ -13,4 +13,6 @@ export { default as ModalImage } from "./ModalImage";
 export { default as TextInput } from "./TextInput";
 export { default as CategoryCard } from "./CategoryCard";
 export { default as ArticleCard } from "./ArticleCard";
+export { default as ServiceCard } from "./ServiceCard";
+export { default as BranchCard } from "./BranchCard";
 

@@ -1,0 +1,102 @@
+@import './../mixins';
+
+#albums {
+  .content {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin: 20px 0;
+
+    .imageContainer {
+      position: relative;
+      width: 100px;
+      height: 100px;
+    }
+
+    .img {
+      cursor: pointer;
+      width: 100%;
+      height: 100%;
+      left: 516px;
+      top: 86px;
+      border-radius: 16px;
+      object-fit: cover;
+    }
+
+    .deleteBtn {
+      width: 32px;
+      height: 32px;
+      border-radius: 100%;
+      position: absolute;
+      z-index: 5;
+      top: -10px;
+      right: -10px;
+      background: rgb(234, 65, 65);
+      box-shadow: 0px 2px 1px rgb(0 0 0 / 10%);
+      @include flex-center-center;
+      @include transition;
+
+      &:hover,
+      &:focus {
+        background: rgb(157, 31, 31);
+      }
+
+      i {
+        color: #fff;
+        font-size: 13px;
+      }
+    }
+  }
+}
+
+.albumContainer {
+  width: 100%;
+}
+
+.imagesContainer {
+  @include flex-start-start;
+  @include flex-wrap;
+  width: 100%;
+  gap: 10px;
+  padding: 20px;
+
+  .serviceImage {
+    width: 250px;
+  }
+}
+
+.imgPreview {
+  width: 100px;
+  height: 100px;
+  background: #e0e0e0;
+  border-radius: 20px;
+  overflow: hidden;
+  position: relative;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.deleteBtn {
+  width: 32px;
+  height: 32px;
+  border-radius: 100%;
+  position: absolute;
+  z-index: 5;
+  top: -10px;
+  right: 30px;
+  background: rgb(234, 65, 65);
+  box-shadow: 0px 2px 1px rgb(0 0 0 / 10%);
+  @include flex-center-center;
+  @include transition;
+
+  &:hover,
+  &:focus {
+    background: rgb(157, 31, 31);
+  }
+
+  i {
+    color: #fff;
+    font-size: 13px;
+  }
+}

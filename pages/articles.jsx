@@ -8,9 +8,10 @@ import {
   Select,
   TextField,
 } from "@mui/material";
-import { get, post, remove } from "@sa/utils/axios";
+import { get, mediaLink, post, remove } from "@sa/utils/axios";
 
-import ReactQuill from "react-quill";
+const ReactQuill =
+  typeof window === "object" ? require("react-quill") : () => false;
 import "react-quill/dist/quill.snow.css";
 
 //components
@@ -21,7 +22,7 @@ import styles from "@sa/styles/pages/Article.module.scss";
 import assets from "@sa/assets";
 import { put } from "@sa/utils/axios";
 
-const Team = () => {
+const Article = () => {
   //category
   const [categories, setCategories] = useState([]);
   const [categoryModalStatus, setCategoryModalStatus] = useState(false);
@@ -37,6 +38,7 @@ const Team = () => {
   const [contentAr, setContentAr] = useState("");
   const [category, setCategory] = useState();
   const [activeArticle, setActiveArticle] = useState("");
+  const [image, setImage] = useState("");
 
   const modules = {
     toolbar: [
@@ -122,7 +124,7 @@ const Team = () => {
     data.append("nameEn", nameEn);
     data.append("id", activeCategory?.id);
     put("/category", data).then((res) => {
-      closeModal();
+      closeCategoryModal();
       loadCategories();
     });
   };
@@ -136,22 +138,31 @@ const Team = () => {
     setArticleModalStatus(false);
   };
 
+  useEffect(() => {
+    console.log("activeArticle=-=-=-=--", activeArticle);
+  }, [activeArticle]);
+
   const addArticle = () => {
     let checker = true;
 
-    if ((!titleEn, !titleAr, !contentEn, !contentAr))
+    if ((!titleEn, !titleAr, !contentEn, !contentAr, !image)) {
+      checker = false;
       alert("قم بملئ جميع الحقول");
+    }
 
-    if (!category) alert("قم باختيار القسم الخاص بالمقالة");
-
-    let data = new FormData();
-    data.append("titleAr", titleAr);
-    data.append("titleEn", titleEn);
-    data.append("contentAr", contentAr);
-    data.append("contentEn", contentEn);
-    data.append("categoryId", category);
+    if (!category) {
+      checker = false;
+      alert("قم باختيار القسم الخاص بالمقالة");
+    }
 
     if (checker) {
+      let data = new FormData();
+      data.append("titleAr", titleAr);
+      data.append("titleEn", titleEn);
+      data.append("contentAr", contentAr);
+      data.append("contentEn", contentEn);
+      data.append("categoryId", category);
+      data.append("image", image);
       post("/article", data).then((res) => {
         closeArticleModal();
         loadCategories();
@@ -163,7 +174,7 @@ const Team = () => {
     remove(`/article/${articleId}`).then((res) => {
       loadCategories();
     });
-  }
+  };
 
   const openEditArticle = (article) => {
     setTitleAr(article?.titleAr);
@@ -178,24 +189,35 @@ const Team = () => {
   const editArticle = () => {
     let checker = true;
 
-    if ((!titleEn, !titleAr, !contentEn, !contentAr))
+    if ((!titleEn, !titleAr, !contentEn, !contentAr, !image)) {
+      checker = false;
       alert("قم بملئ جميع الحقول");
+    }
 
-    if (!category) alert("قم باختيار القسم الخاص بالمقالة");
-
-    let data = new FormData();
-    data.append("articleId", activeArticle?.id);
-    data.append("titleAr", titleAr);
-    data.append("titleEn", titleEn);
-    data.append("contentAr", contentAr);
-    data.append("contentEn", contentEn);
-    data.append("categoryId", category);
+    if (!category) {
+      checker = false;
+      alert("قم باختيار القسم الخاص بالمقالة");
+    }
 
     if (checker) {
+      let data = new FormData();
+      data.append("articleId", activeArticle?.id);
+      data.append("titleAr", titleAr);
+      data.append("titleEn", titleEn);
+      data.append("contentAr", contentAr);
+      data.append("contentEn", contentEn);
+      data.append("categoryId", category);
+      data.append("image", image);
       put("/article", data).then((res) => {
         closeArticleModal();
         loadCategories();
       });
+    }
+  };
+
+  const onImageChange = (event) => {
+    if (event.target.files && event.target.files[0]) {
+      setImage(event.target.files[0]);
     }
   };
 
@@ -211,7 +233,7 @@ const Team = () => {
         onClick={() => setCategoryModalStatus(true)}
       />
 
-      <div className={styles.articleContainer}>
+      <div className="articleContainer">
         {categories?.length > 0 &&
           categories?.map((category, i) => (
             <CategoryCard
@@ -301,8 +323,25 @@ const Team = () => {
         aria-describedby="modal-modal-description"
       >
         <div className={styles.articleModal}>
-          <div className={styles.articleContainer}>
-            <div className={styles.arabicSection}>
+          <div
+            className="articleImage"
+            style={{
+              backgroundImage: `url(${
+                image
+                  ? URL.createObjectURL(image)
+                  : activeArticle
+                  ? `${mediaLink}/articles/${activeArticle?.id}/${activeArticle?.image}`
+                  : null
+              })`,
+            }}
+          >
+            <input type="file" onChange={onImageChange} />
+            {!image && !activeArticle?.image && (
+              <i className="fas fa-camera"></i>
+            )}
+          </div>
+          <div className="articleContainer">
+            <div className="arabicSection">
               <TextField
                 id="outlined-basic"
                 value={titleAr}
@@ -311,7 +350,7 @@ const Team = () => {
                 variant="outlined"
                 className="textInput"
               />
-              <div className={styles.editorContainer}>
+              <div className="editorContainer">
                 <ReactQuill
                   modules={modules}
                   formats={formats}
@@ -321,7 +360,7 @@ const Team = () => {
                 />
               </div>
             </div>
-            <div className={styles.EnglishSection}>
+            <div className="englishSection">
               <TextField
                 id="outlined-basic"
                 value={titleEn}
@@ -330,7 +369,7 @@ const Team = () => {
                 variant="outlined"
                 className="textInput"
               />
-              <div className={styles.editorContainer}>
+              <div className="editorContainer">
                 <ReactQuill
                   modules={modules}
                   formats={formats}
@@ -380,4 +419,4 @@ const Team = () => {
   );
 };
 
-export default Team;
+export default Article;

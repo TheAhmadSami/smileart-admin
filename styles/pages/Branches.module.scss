@@ -1,0 +1,16 @@
+@import './../mixins';
+
+#branches {
+  .branchesDetails {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin: 20px 0;
+  }
+}
+
+.addBranchContainer {
+  @include flex-center-center;
+  @include flex-col;
+  gap: 10px;
+}

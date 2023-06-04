@@ -136,7 +136,9 @@ const Service = () => {
               }}
             >
               <input type="file" onChange={onImageChange} />
-              {(!image && !activeService?.image) && <i className="fas fa-camera"></i>}
+              {!image && !activeService?.image && (
+                <i className="fas fa-camera"></i>
+              )}
             </div>
             <TextField
               id="outlined-basic"

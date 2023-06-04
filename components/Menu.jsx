@@ -22,6 +22,12 @@ const Menu = ({ mini }) => {
       icon: "fal fa-hand-holding-medical",
     },
     {
+      label: "صور الخدمات",
+      route: "/service-images",
+      name: "/service-images",
+      icon: "fal fa-images",
+    },
+    {
       label: "المقالات",
       route: "articles",
       name: "/articles",
@@ -40,16 +46,16 @@ const Menu = ({ mini }) => {
       icon: "fal fa-images",
     },
     {
-      label: "آراء العملاء (فيسبوك)",
-      route: "reviews-facebook",
-      name: "/reviews-facebook",
+      label: "آراء العملاء",
+      route: "reviews",
+      name: "/reviews",
       icon: "fal fa-images",
     },
     {
-      label: "آراء العملاء (جوجل)",
-      route: "reviews-google",
-      name: "/reviews-google",
-      icon: "fal fa-images",
+      label: "الفروع",
+      route: "branches",
+      name: "/branches",
+      icon: "fal fa-map-marker-alt",
     },
     {
       label: "أخرى",

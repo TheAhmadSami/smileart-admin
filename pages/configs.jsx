@@ -1,6 +1,13 @@
 /* eslint-disable @next/next/no-img-element */
 import React, { useEffect, useState } from "react";
-import { Button, FormControl, InputLabel, MenuItem, Select, TextField } from "@mui/material";
+import {
+  Button,
+  FormControl,
+  InputLabel,
+  MenuItem,
+  Select,
+  TextField,
+} from "@mui/material";
 import { get, post } from "@sa/utils/axios";
 
 //components
@@ -28,6 +35,7 @@ const Gallery = () => {
     titleEn: "",
     titleAr: "",
     email: "",
+    keywords: "",
   });
 
   const loadConfigs = async () => {
@@ -49,7 +57,6 @@ const Gallery = () => {
       alert("تم حفظ البيانات بنجاح");
     });
   };
-
 
   return (
     <div id={styles.gallery} className="__page">
@@ -132,8 +139,6 @@ const Gallery = () => {
           variant="outlined"
           className="textInput textinput2 ltr"
         />
-
-
 
         <TextField
           id="outlined-basic"
@@ -245,6 +250,16 @@ const Gallery = () => {
             setConfigs({ ...configs, ["wordEn"]: e.target.value })
           }
           label="Who is Dr. Magdy (English)"
+          variant="outlined"
+          className="textInput ltr"
+        />
+        <TextField
+          id="outlined-basic"
+          value={configs?.keywords}
+          onChange={(e) =>
+            setConfigs({ ...configs, ["keywords"]: e.target.value })
+          }
+          label="Keywords"
           variant="outlined"
           className="textInput ltr"
         />

@@ -22,7 +22,7 @@ const ServiceImages = () => {
   const [image2, setImage2] = useState(null);
 
   const loadServices = async () => {
-    get("/services").then((res) => {
+    get("/serv").then((res) => {
       setServices(res?.data);
     });
   };
@@ -68,7 +68,7 @@ const ServiceImages = () => {
     <div id={styles.albums} className="__page">
 
       <div className={styles.content}>
-        {services.length > 0 &&
+        {services?.length > 0 &&
           services?.map((service, index) => (
             <div key={index} className={styles.albumContainer}>
               <SectionTitle

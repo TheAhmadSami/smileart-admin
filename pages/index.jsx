@@ -22,7 +22,7 @@ const Service = () => {
   const [link, setLink] = useState("");
 
   const loadServices = async () => {
-    get("/services").then((res) => {
+    get("/serv").then((res) => {
       if (res?.data) setServices(res.data);
     });
   };
@@ -41,7 +41,7 @@ const Service = () => {
     data.append("subtitleAr", subtitleAr);
     data.append("image", image);
 
-    post("/services", data).then((res) => {
+    post("/serv", data).then((res) => {
       closeModal();
       loadServices();
     });
@@ -67,7 +67,7 @@ const Service = () => {
       data.append("image", image);
     }
 
-    put("/services", data).then((res) => {
+    put("/serv", data).then((res) => {
       closeModal();
       loadServices();
     });
@@ -88,7 +88,7 @@ const Service = () => {
   }, []);
 
   const deleteService = (serviceId) => {
-    remove(`/services/${serviceId}`).then((res) => {
+    remove(`/serv/${serviceId}`).then((res) => {
       loadServices();
     });
   };

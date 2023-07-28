@@ -46,6 +46,12 @@ const Menu = ({ mini }) => {
       icon: "fal fa-images",
     },
     {
+      label: "قبل وبعد",
+      route: "before-after",
+      name: "/before-after",
+      icon: "fal fa-images",
+    },
+    {
       label: "آراء العملاء",
       route: "reviews",
       name: "/reviews",

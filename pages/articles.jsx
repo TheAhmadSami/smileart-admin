@@ -138,14 +138,11 @@ const Article = () => {
     setArticleModalStatus(false);
   };
 
-  useEffect(() => {
-    console.log("activeArticle=-=-=-=--", activeArticle);
-  }, [activeArticle]);
 
   const addArticle = () => {
     let checker = true;
 
-    if ((!titleEn, !titleAr, !contentEn, !contentAr, !image)) {
+    if ((!titleEn, !titleAr, !contentEn, !contentAr)) {
       checker = false;
       alert("قم بملئ جميع الحقول");
     }
@@ -162,7 +159,6 @@ const Article = () => {
       data.append("contentAr", contentAr);
       data.append("contentEn", contentEn);
       data.append("categoryId", category);
-      data.append("image", image);
       post("/article", data).then((res) => {
         closeArticleModal();
         loadCategories();

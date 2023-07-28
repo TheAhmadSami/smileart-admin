@@ -2,8 +2,8 @@ import axios from "axios";
 
 export let mediaLink = "http://localhost:3500/media";
 export let apiLink = "http://localhost:3500/v1";
-// mediaLink = 'https://api.smileart-eg.com/media';
-// apiLink = 'https://api.smileart-eg.com/v1';
+mediaLink = 'https://api.smileart-eg.com/media';
+apiLink = 'https://api.smileart-eg.com/v1';
 
 export const post = async (url, data = new FormData()) => {
   // let token = await getData('user_t');
